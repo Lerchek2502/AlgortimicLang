@@ -102,6 +102,18 @@ station SetStat()
     return Item;
 }
 
+void ShowPipe(const pipe& Item) {
+    cout << "Имя\t" << "Длинна\t" << "Диаметр\t" << "Ремонт\t" << endl;
+    cout << "================================================" << endl;
+    cout << Item.name << '\t' << Item.lenght << '\t' << Item.diametr << '\t' << Item.repair << endl;
+}
+
+void ShowStat(const station& Item) {
+    cout << "Имя\t" << "countWS\t" << "actWS\t" << "Эффективность\t" << endl;
+    cout << "===========================================================================" << endl;
+    cout << Item.name << '\t' << Item.countWS << '\t' << Item.actWS << '\t' << Item.eff << endl;
+}
+
 int main() {
     setlocale(LC_CTYPE, "Russian");
     int pointer;
@@ -123,6 +135,11 @@ int main() {
             break;
         }
         case 3: {
+            system("cls");
+            cout << "Просмотр всех объектов\n\n";
+            ShowPipe(tube);
+            cout << "\n";
+            ShowStat(CompStation);
             break;
         }
         case 4: {
