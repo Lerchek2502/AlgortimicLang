@@ -192,6 +192,75 @@ void EditStat(station& Item)
     }
 }
 
+void Save(const pipe& Item1, const station& Item2) {    
+    ofstream fout("C:\\Users\\strel\\Documents\\AlgortimicLang\\AlgortimicLang\\Lab_1_Strelets\\saveall.txt");
+    fout << Item1.name << "/" << Item1.lenght << "/" << Item1.diametr << "/" << Item1.repair << endl;
+    fout << Item2.name << "/" << Item2.countWS << "/" << Item2.actWS << "/" << Item2.eff << endl;
+    fout.close();
+}
+
+void Upload(pipe& Item1, station& Item2) {
+    ifstream fin("C:\\Users\\strel\\Downloads\\Shipov_Lab_1\\mas.txt");
+    string buff;
+    if (!fin.is_open()) // если файл не открыт
+        cout << "Файл не может быть открыт!\n"; // сообщить об этом
+    else {
+        getline(fin, Item1.name, '/');
+        getline(fin, buff, '/');
+        if (stoi(buff) <= 0) {
+            cout << "Файл не корректен 1!" << endl;
+            return;
+        }
+        else {
+            Item1.lenght = stoi(buff);
+        }
+        getline(fin, buff, '/');
+        if (stoi(buff) <= 0) {
+            cout << "Файл не корректен 2!" << endl;
+            return;
+        }
+        else {
+            Item1.diametr = stoi(buff);
+        }
+        getline(fin, buff);
+        if ((stoi(buff) < 0) || (stoi(buff) > 1)) {
+            cout << "Файл не корректен 3!" << endl;
+            return;
+        }
+        else {
+            Item1.repair = stoi(buff);
+        }
+
+        getline(fin, Item2.name, '/');
+        getline(fin, buff, '/');
+        if (stoi(buff) <= 0) {
+            cout << "Файл не корректен 4!" << endl;
+            return;
+        }
+        else {
+            Item2.countWS = stoi(buff);
+        }
+        getline(fin, buff, '/');
+        if (Item2.countWS < stoi(buff)) {
+            cout << "Файл не корректен 5!" << endl;
+            return;
+        }
+        else {
+            Item2.actWS = stoi(buff);
+        }
+        getline(fin, buff);
+        if ((stof(buff) < 0) || (stof(buff) > 1)) {
+            cout << "Файл не корректен 6!" << endl;
+            return;
+        }
+        else {
+            Item2.eff = stof(buff);
+        }
+        fin.close(); // закрываем файл  
+        return;
+    }
+}
+
 int main() {
     setlocale(LC_CTYPE, "Russian");
     int pointer;
@@ -229,9 +298,11 @@ int main() {
             break;
         }
         case 6: {
+            Save(tube, CompStation);
             break;
         }
         case 7: {
+            Upload(tube, CompStation);
             break;
         }
         }
