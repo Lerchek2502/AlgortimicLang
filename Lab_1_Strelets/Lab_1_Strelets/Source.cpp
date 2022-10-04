@@ -114,6 +114,84 @@ void ShowStat(const station& Item) {
     cout << Item.name << '\t' << Item.countWS << '\t' << Item.actWS << '\t' << Item.eff << endl;
 }
 
+void EditPipe(pipe& Item)
+{
+    system("cls");
+    cout << "Что редактируем?\n" << "1. Имя\n" << "2. Длинна\n" << "3. Диаметр\n" << "4. Ремонт\n" << "0. Выход\n" << ">";
+    int pointer = Take_Int(4);
+    switch (pointer) {
+    case 1:
+        cout << "Текущее имя: " << Item.name << "\n";
+        cout << "Новое имя: ";
+        getline(cin, Item.name);
+        break;
+    case 2:
+        cout << "Текущая длинна: " << Item.lenght << "\n";
+        cout << "Новая длинна (км): ";
+        Item.lenght = Take_Int(1000000);
+        while (Item.lenght <= 0) {
+            cout << "Длинна должна быть больше 0!" << endl;
+            Item.lenght = Take_Int(1000000);
+        }
+        break;
+    case 3:
+        cout << "Текущий диаметр: " << Item.diametr << "\n";
+        cout << "Новый диаметр (см): ";
+        Item.diametr = Take_Int(1000000);
+        while (Item.diametr <= 0) {
+            cout << "Диаметр должен быть больше 0!" << endl;
+            Item.diametr = Take_Int(1000000);
+        }
+        break;
+    case 4:
+        cout << "Текущий Ремонт: " << Item.repair << "\n";
+        cout << "Ремонт (0 - Нет или 1 - Да): ";
+        Item.repair = Take_Int(1);
+        break;
+    case 0:
+        break;
+    }
+}
+
+void EditStat(station& Item)
+{
+    system("cls");
+    cout << "Что редактируем?\n" << "1. Имя\n" << "2. Кол-во цехов\n" << "3. Кол-во цехов в работе\n" << "4. Эффективность\n" << "0. Выход\n" << ">";
+    int pointer = Take_Int(4);
+    switch (pointer) {
+    case 1:
+        cout << "Текущее имя: " << Item.name << "\n";
+        cout << "Новое имя: ";
+        getline(cin, Item.name);
+        break;
+    case 2:
+        cout << "Текущее кол-во цехов: " << Item.countWS << "\n";
+        cout << "Новое кол-во цехов: ";
+        Item.countWS = Take_Int(1000000);
+        while (Item.countWS <= 0) {
+            cout << "Кол-во цехов должно быть больше 0!" << endl;
+            Item.countWS = Take_Int(1000000);
+        }
+        break;
+    case 3:
+        cout << "Текущее кол-во цехов в работе: " << Item.actWS << "\n";
+        cout << "Новое кол-во цехов в работе: ";
+        Item.actWS = Take_Int(1000000);
+        while (Item.countWS < Item.actWS) {
+            cout << "Количество цехов в работе должно быть меньше либо равно общему количеству цехов!" << endl;
+            Item.actWS = Take_Int(1000000);
+        }
+        break;
+    case 4:
+        cout << "Текущая эффективность: " << Item.eff << "\n";
+        cout << "Новая эффективность (От 0 до 1): ";
+        Item.eff = Take_Float(1);
+        break;
+    case 0:
+        break;
+    }
+}
+
 int main() {
     setlocale(LC_CTYPE, "Russian");
     int pointer;
@@ -143,9 +221,11 @@ int main() {
             break;
         }
         case 4: {
+            EditPipe(tube);
             break;
         }
         case 5: {
+            EditStat(CompStation);
             break;
         }
         case 6: {
