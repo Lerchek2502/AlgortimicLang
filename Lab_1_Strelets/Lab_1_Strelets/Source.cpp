@@ -18,10 +18,10 @@ struct station {
     float eff;
 };
 
-int Take_Int(int b) {
+int Take_Int(int a,int b) {
     int buff;
     cin >> buff;
-    while ((cin.fail()) || (buff < 0) || (buff > b) || (cin.get() != '\n')) {
+    while ((cin.fail()) || (buff < a) || (buff > b) || (cin.get() != '\n')) {
         cin.clear();
         cin.ignore(1000000, '\n');
         cout << "Введите корректное число: ";
@@ -30,10 +30,10 @@ int Take_Int(int b) {
     return buff;
 }
 
-float Take_Float(float b) {
+float Take_Float(float a, float b) {
     float buff;
     cin >> buff;
-    while ((cin.fail()) || (buff < 0) || (buff > b) || (cin.get() != '\n')) {
+    while ((cin.fail()) || (buff < a) || (buff > b) || (cin.get() != '\n')) {
         cin.clear();
         cin.ignore(1000000, '\n');
         cout << "Введите корректное число: ";
@@ -55,207 +55,111 @@ void disp_menu() {
     cout << "\nВыберите действие - ";
 }
 
-pipe SetPipe() {
-    pipe Item;
+void SetPipe(pipe& Item) {
     system("cls");
     cout << "Добавление трубы\n";
     cout << "Имя: ";
     getline(cin, Item.name);
-    cout << "Длинна (км): ";
-    Item.lenght = Take_Int(1000000);
-    while (Item.lenght <= 0) {
-        cout << "Длинна должна быть больше 0!" << endl;
-        Item.lenght = Take_Int(1000000);
-    }
+    cout << "Длина (км): ";
+    Item.lenght = Take_Int(1, 1000000);
     cout << "Диаметр (см): ";
-    Item.diametr = Take_Int(1000000);
-    while (Item.diametr <= 0) {
-        cout << "Диаметр должен быть больше 0!" << endl;
-        Item.diametr = Take_Int(1000000);
-    }
+    Item.diametr = Take_Int(1,1000000);
     cout << "Ремонт (0 - Нет или 1 - Да): ";
-    Item.repair = Take_Int(1);
-    return Item;
+    Item.repair = Take_Int(0, 1);
 }
 
-station SetStat()
+void SetStat(station& Item)
 {
-    station Item;
     system("cls");
     cout << "Добавление КС\n";
     cout << "Имя: ";
     getline(cin, Item.name);
     cout << "Кол-во цехов: ";
-    Item.countWS = Take_Int(1000000);
-    while (Item.countWS <= 0) {
-        cout << "Кол-во цехов должно быть больше 0!" << endl;
-        Item.countWS = Take_Int(1000000);
-    }
+    Item.countWS = Take_Int(1, 1000000);
     cout << "Кол-во цехов в работе: ";
-    Item.actWS = Take_Int(1000000);
-    while (Item.countWS < Item.actWS) {
-        cout << "Количество цехов в работе должно быть меньше либо равно общему количеству цехов!" << endl;
-        Item.actWS = Take_Int(1000000);
-    }
+    Item.actWS = Take_Int(0, Item.countWS);
     cout << "Эффективность (От 0 до 1): ";
-    Item.eff = Take_Float(1);
-    return Item;
+    Item.eff = Take_Float(0, 1);
 }
 
 void ShowPipe(const pipe& Item) {
-    cout << "Имя\t" << "Длинна\t" << "Диаметр\t" << "Ремонт\t" << endl;
+    cout << "Имя\t" << "Длина\t" << "Диаметр\t" << "Ремонт\t" << endl;
     cout << "================================================" << endl;
-    cout << Item.name << '\t' << Item.lenght << '\t' << Item.diametr << '\t' << Item.repair << endl;
+    if (Item.lenght != 0) {
+        cout << Item.name << '\t' << Item.lenght << '\t' << Item.diametr << '\t' << Item.repair << endl;
+    }
 }
 
 void ShowStat(const station& Item) {
     cout << "Имя\t" << "countWS\t" << "actWS\t" << "Эффективность\t" << endl;
     cout << "===========================================================================" << endl;
-    cout << Item.name << '\t' << Item.countWS << '\t' << Item.actWS << '\t' << Item.eff << endl;
+    if (Item.countWS != 0) {
+        cout << Item.name << '\t' << Item.countWS << '\t' << Item.actWS << '\t' << Item.eff << endl;
+    }
 }
 
 void EditPipe(pipe& Item)
 {
     system("cls");
-    cout << "Что редактируем?\n" << "1. Имя\n" << "2. Длинна\n" << "3. Диаметр\n" << "4. Ремонт\n" << "0. Выход\n" << ">";
-    int pointer = Take_Int(4);
-    switch (pointer) {
-    case 1:
-        cout << "Текущее имя: " << Item.name << "\n";
-        cout << "Новое имя: ";
-        getline(cin, Item.name);
-        break;
-    case 2:
-        cout << "Текущая длинна: " << Item.lenght << "\n";
-        cout << "Новая длинна (км): ";
-        Item.lenght = Take_Int(1000000);
-        while (Item.lenght <= 0) {
-            cout << "Длинна должна быть больше 0!" << endl;
-            Item.lenght = Take_Int(1000000);
-        }
-        break;
-    case 3:
-        cout << "Текущий диаметр: " << Item.diametr << "\n";
-        cout << "Новый диаметр (см): ";
-        Item.diametr = Take_Int(1000000);
-        while (Item.diametr <= 0) {
-            cout << "Диаметр должен быть больше 0!" << endl;
-            Item.diametr = Take_Int(1000000);
-        }
-        break;
-    case 4:
+    if (Item.lenght != 0) {
         cout << "Текущий Ремонт: " << Item.repair << "\n";
         cout << "Ремонт (0 - Нет или 1 - Да): ";
-        Item.repair = Take_Int(1);
-        break;
-    case 0:
-        break;
+        Item.repair = Take_Int(0, 1);
+    }
+    else {
+        cout << "Труба отсутствует" << endl;
     }
 }
 
 void EditStat(station& Item)
 {
     system("cls");
-    cout << "Что редактируем?\n" << "1. Имя\n" << "2. Кол-во цехов\n" << "3. Кол-во цехов в работе\n" << "4. Эффективность\n" << "0. Выход\n" << ">";
-    int pointer = Take_Int(4);
-    switch (pointer) {
-    case 1:
-        cout << "Текущее имя: " << Item.name << "\n";
-        cout << "Новое имя: ";
-        getline(cin, Item.name);
-        break;
-    case 2:
-        cout << "Текущее кол-во цехов: " << Item.countWS << "\n";
-        cout << "Новое кол-во цехов: ";
-        Item.countWS = Take_Int(1000000);
-        while (Item.countWS <= 0) {
-            cout << "Кол-во цехов должно быть больше 0!" << endl;
-            Item.countWS = Take_Int(1000000);
-        }
-        break;
-    case 3:
+    if (Item.countWS != 0) {        
         cout << "Текущее кол-во цехов в работе: " << Item.actWS << "\n";
         cout << "Новое кол-во цехов в работе: ";
-        Item.actWS = Take_Int(1000000);
-        while (Item.countWS < Item.actWS) {
-            cout << "Количество цехов в работе должно быть меньше либо равно общему количеству цехов!" << endl;
-            Item.actWS = Take_Int(1000000);
-        }
-        break;
-    case 4:
-        cout << "Текущая эффективность: " << Item.eff << "\n";
-        cout << "Новая эффективность (От 0 до 1): ";
-        Item.eff = Take_Float(1);
-        break;
-    case 0:
-        break;
+        Item.actWS = Take_Int(0, Item.countWS);
+    }
+    else {
+        cout << "КС отсутствует" << endl;
     }
 }
 
 void Save(const pipe& Item1, const station& Item2) {    
     ofstream fout("C:\\Users\\strel\\Documents\\AlgortimicLang\\AlgortimicLang\\Lab_1_Strelets\\saveall.txt");
-    fout << Item1.name << "/" << Item1.lenght << "/" << Item1.diametr << "/" << Item1.repair << endl;
-    fout << Item2.name << "/" << Item2.countWS << "/" << Item2.actWS << "/" << Item2.eff << endl;
+    if (Item1.lenght != 0) {
+        fout << 0 << "\n" << Item1.name << "\n" << Item1.lenght << "\n" << Item1.diametr << "\n" << Item1.repair << endl;
+    }
+
+    if (Item2.countWS != 0) {
+        fout << 1 << "\n" << Item2.name << "\n" << Item2.countWS << "\n" << Item2.actWS << "\n" << Item2.eff << endl;
+    }
     fout.close();
 }
 
 void Upload(pipe& Item1, station& Item2) {
-    ifstream fin("C:\\Users\\strel\\Downloads\\Shipov_Lab_1\\mas.txt");
-    string buff;
+    ifstream fin("C:\\Users\\strel\\Documents\\AlgortimicLang\\AlgortimicLang\\Lab_1_Strelets\\saveall.txt");
     if (!fin.is_open()) // если файл не открыт
         cout << "Файл не может быть открыт!\n"; // сообщить об этом
     else {
-        getline(fin, Item1.name, '/');
-        getline(fin, buff, '/');
-        if (stoi(buff) <= 0) {
-            cout << "Файл не корректен 1!" << endl;
-            return;
-        }
-        else {
-            Item1.lenght = stoi(buff);
-        }
-        getline(fin, buff, '/');
-        if (stoi(buff) <= 0) {
-            cout << "Файл не корректен 2!" << endl;
-            return;
-        }
-        else {
-            Item1.diametr = stoi(buff);
-        }
-        getline(fin, buff);
-        if ((stoi(buff) < 0) || (stoi(buff) > 1)) {
-            cout << "Файл не корректен 3!" << endl;
-            return;
-        }
-        else {
-            Item1.repair = stoi(buff);
+        int q;
+        for (int i = 0; i < 2; i++) {
+            fin >> q;
+            if (q == 0) {
+                fin >> ws;
+                std::getline(fin, Item1.name);
+                fin >> Item1.lenght;
+                fin >> Item1.diametr;
+                fin >> Item1.repair;
+            }
+            else if (q == 1) {
+                fin >> ws;
+                std::getline(fin, Item2.name);
+                fin >> Item2.countWS;
+                fin >> Item2.actWS;
+                fin >> Item2.eff;
+            }
         }
 
-        getline(fin, Item2.name, '/');
-        getline(fin, buff, '/');
-        if (stoi(buff) <= 0) {
-            cout << "Файл не корректен 4!" << endl;
-            return;
-        }
-        else {
-            Item2.countWS = stoi(buff);
-        }
-        getline(fin, buff, '/');
-        if (Item2.countWS < stoi(buff)) {
-            cout << "Файл не корректен 5!" << endl;
-            return;
-        }
-        else {
-            Item2.actWS = stoi(buff);
-        }
-        getline(fin, buff);
-        if ((stof(buff) < 0) || (stof(buff) > 1)) {
-            cout << "Файл не корректен 6!" << endl;
-            return;
-        }
-        else {
-            Item2.eff = stof(buff);
-        }
         fin.close(); // закрываем файл  
         return;
     }
@@ -265,20 +169,20 @@ int main() {
     setlocale(LC_CTYPE, "Russian");
     int pointer;
 
-    pipe tube = { "0", 0, 0, 0 };
-    station CompStation = { "0", 0, 0, 0 };
+    pipe tube = {};
+    station CompStation = {};
 
     do {
         disp_menu();
-        pointer = Take_Int(7);
+        pointer = Take_Int(0, 7);
 
         switch (pointer) {
         case 1: {
-            tube = SetPipe();
+            SetPipe(tube);
             break;
         }
         case 2: {
-            CompStation = SetStat();
+            SetStat(CompStation);
             break;
         }
         case 3: {
