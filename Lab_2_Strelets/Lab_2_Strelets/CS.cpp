@@ -40,3 +40,17 @@ istream& operator>>(istream& is, CS& stat) {
     stat.eff = Take_Float(0, 1);
     return is;
 };
+
+ofstream& operator<<(ofstream& ofs, const CS& stat) {
+    ofs << CS_FLAG << endl << stat.get_name() << endl << stat.get_on_ws() << endl << stat.get_num_ws()
+        << endl << stat.get_eff() << endl << endl;
+    return ofs;
+};
+
+ifstream& operator>>(ifstream& ifs, CS& stat) {
+    getline(ifs, stat.name);
+    ifs >> stat.on_ws;
+    ifs >> stat.num_ws;
+    ifs >> stat.eff;
+    return ifs;
+};

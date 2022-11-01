@@ -40,3 +40,17 @@ istream& operator>>(istream& is, tube& p) {
     p.repair = Take_Int(0, 1);
     return is;
 };
+
+ofstream& operator<<(ofstream& ofs, const tube& p) {
+    ofs << PIPE_FLAG << endl << p.get_name() << endl << p.get_lenght() << endl << p.get_diameter() << endl << p.get_repair()
+        << endl << endl;
+    return ofs;
+};
+
+ifstream& operator>>(ifstream& ifs, tube& p) {
+    getline(ifs, p.name);
+    ifs >> p.lenght;
+    ifs >> p.diameter;
+    ifs >> p.repair;
+    return ifs;
+};

@@ -50,6 +50,12 @@ float Take_Float(const float a, const float b) {
     return n;
 }
 
+bool check_file(const string& name_file)
+{
+    ifstream exist("..\\" + name_file); // Проверка существования файла
+    return(exist.is_open());
+}
+
 //Добавление трубы
 void add_tube(unordered_map <int, tube>& mp) {
     auto iter = mp.end();
@@ -137,4 +143,48 @@ void disp_all(const unordered_map <int, tube>& mp_pipe, const unordered_map <int
     if (mp_cs.size() != 0) { for (auto iter : mp_cs) cout << "|" << setw(4) << iter.first << "|" << iter.second; }
     else { std::cout << "Sorry, we didn't found any CS" << endl; }
     system("pause");
+}
+
+//Сохранение в файл
+void save(const unordered_map <int, tube>& mp_pipe, const unordered_map <int, CS>& mp_cs) {
+    system("cls");
+    cout << "Enter the name of file, using for saving data: ";
+    string name_file;
+    getline(cin, name_file);
+    ofstream fout("..\\" + name_file, check_file(name_file) ? cout << "The file with this name is exist. Rewrite file ? (1 Yes) / (0 No): ", ((bool)Take_Int(0, 1) ? ios::out : ios::app) : ios::out);
+
+    if (fout.is_open()) {
+        if (mp_pipe.size()) for (auto iter : mp_pipe) fout << iter.second;
+        if (mp_cs.size()) for (auto iter : mp_cs) fout << iter.second;
+        fout.close();
+    }
+    cout << "\nData "; (mp_pipe.size()) || (mp_cs.size()) ? cout << "have" : cout << "haven't"; cout << " been saved";
+    system("pause");
+}
+
+
+//Загрузка из файла
+void upload(unordered_map <int, tube>& mp_pipe, unordered_map <int, CS>& mp_cs) {
+    system("cls");
+    string name_file;
+    while (1) {
+        cout << "Enter the name of file, using for loading data: ";
+        getline(cin, name_file);
+        if (check_file(name_file)) { cout << "This file has been find "; break; }
+        else { cout << "We cannot find this file. Try again ? Yes 1/ No 0: "; if (Take_Int(0, 1) == false) break; }
+    }
+
+    ifstream fin("..\\" + name_file);
+    if (fin.is_open()) {
+        int type;
+        int i = 1;
+        int j = 1;
+        while (fin >> type) { // Считывание данных из файла до конца файла
+            fin.ignore();
+            if (type == 1) fin >> mp_pipe[i], i++;
+            if (type == 2) fin >> mp_cs[j], j++;
+        }
+        fin.close();
+        cout << "\nData "; (mp_pipe.size()) || (mp_cs.size()) ? cout << "have" : cout << "haven't"; cout << " been upload";
+    }
 }

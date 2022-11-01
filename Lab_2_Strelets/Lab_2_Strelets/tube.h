@@ -20,5 +20,6 @@ public:
 
     friend ostream& operator<<(ostream& os, const tube& p);
     friend istream& operator>>(istream& is, tube& p);
-
+    friend ofstream& operator<<(ofstream& ofs, const tube& p);
+    friend ifstream& operator>>(ifstream& ifs, tube& p);
 };

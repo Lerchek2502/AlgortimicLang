@@ -46,12 +46,12 @@ int main() {
         }
 
         case 8: { //Сохранение в файл
-            //
+            save(mp_pipe, mp_cs);
             break;
         }
 
         case 9: { //Загрузка из файла
-            //
+            upload(mp_pipe, mp_cs);
             break;
         }
 

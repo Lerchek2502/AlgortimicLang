@@ -20,4 +20,6 @@ public:
 
 	friend ostream& operator<<(ostream& os, const CS& stat);
 	friend istream& operator>>(istream& is, CS& stat);
+	friend ofstream& operator<<(ofstream& ofs, const CS& stat);
+	friend ifstream& operator>>(ifstream& ifs, CS& stat);
 };

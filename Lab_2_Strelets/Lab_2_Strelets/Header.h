@@ -26,3 +26,6 @@ void delete_cs(unordered_map <int, CS>& mp, int id);
 void effect_cs(unordered_map <int, CS>& mp, CS_func func);
 
 void disp_all(const unordered_map <int, tube>& mp_pipe, const unordered_map <int, CS>& mp_cs);
+
+void save(const unordered_map <int, tube>& mp_pipe, const unordered_map <int, CS>& mp_cs);
+void upload(unordered_map <int, tube>& mp_pipe, unordered_map <int, CS>& mp_cs);
