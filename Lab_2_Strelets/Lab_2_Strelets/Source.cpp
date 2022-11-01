@@ -56,22 +56,22 @@ int main() {
         }
 
         case 10: { //Поиск трубы по имени
-            //
+            filtration_tube_by_name(mp_pipe);
             break;
         }
 
         case 11: { //Поиск трубы по ремонту
-            //
+            filtration_tube_by_repair(mp_pipe);
             break;
         }
 
         case 12: { //Поиск КС по имени
-            //
+            filtration_cs_by_name(mp_cs);
             break;
         }
 
         case 13: { //Поиск КС по проценту незадействованных цехов
-            //
+            filtration_cs_by_act_ws(mp_cs);
             break;
         }
 

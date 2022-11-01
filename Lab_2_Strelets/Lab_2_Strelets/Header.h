@@ -29,3 +29,26 @@ void disp_all(const unordered_map <int, tube>& mp_pipe, const unordered_map <int
 
 void save(const unordered_map <int, tube>& mp_pipe, const unordered_map <int, CS>& mp_cs);
 void upload(unordered_map <int, tube>& mp_pipe, unordered_map <int, CS>& mp_cs);
+
+template<typename T>
+using filter_tube = bool(*)(const pair <int, tube>& p, T param);
+bool check_by_name(const pair <int, tube>& p, string param);
+bool check_by_repair(const pair <int, tube>& p, bool param);
+
+template<typename T>
+vector<int> find_tube_by_filter(const unordered_map <int, tube>& mp, filter_tube<T> f, T param);
+
+void filtration_tube_by_name(unordered_map <int, tube>& mp);
+void filtration_tube_by_repair(unordered_map <int, tube>& mp);
+
+
+template<typename T>
+using filter_cs = bool(*)(const pair <int, CS>& p, T param);
+bool check_cs_by_name(const pair <int, CS>& p, string param);
+bool check_cs_by_act_ws(const pair <int, CS>& p, float param);
+
+template<typename T>
+vector<int> find_cs_by_filter(const unordered_map <int, CS>& mp, filter_cs<T> f, T param);
+
+void filtration_cs_by_name(const unordered_map <int, CS>& mp);
+void filtration_cs_by_act_ws(const unordered_map <int, CS>& mp);

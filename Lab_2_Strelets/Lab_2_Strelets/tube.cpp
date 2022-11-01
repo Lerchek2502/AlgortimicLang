@@ -22,6 +22,11 @@ void tube::set_repair() { // Редактирование трубы
     repair = Take_Int(0, 1);
 }
 
+void tube::set_repair(bool new_status)
+{
+    repair = new_status;
+}
+
 ostream& operator<<(ostream& os, const tube& p) {
     return os << setw(16) << p.get_name() << "|" << setw(16) << p.get_lenght() << "|" << setw(16) << p.get_diameter()
         << "|" << setw(6) << p.get_repair() << "|" << endl;
