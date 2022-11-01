@@ -16,6 +16,8 @@ public:
 	int get_on_ws() const;
 	double get_eff() const;
 
+	void set_on_ws();
+
 	friend ostream& operator<<(ostream& os, const CS& stat);
 	friend istream& operator>>(istream& is, CS& stat);
 };

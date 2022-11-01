@@ -16,12 +16,12 @@ int main() {
         }
 
         case 2: { //Редактирование трубы
-            //
+            effect_tube(mp_pipe, edit_tube);
             break;
         }
 
         case 3: { //Удаление трубы
-            //
+            effect_tube(mp_pipe, delete_tube);
             break;
         }
 
@@ -31,12 +31,12 @@ int main() {
         }
 
         case 5: { //Редактирование КС
-            //
+            effect_cs(mp_cs, edit_cs);
             break;
         }
 
         case 6: { //Удаление КС
-            //
+            effect_cs(mp_cs, delete_cs);
             break;
         }
 

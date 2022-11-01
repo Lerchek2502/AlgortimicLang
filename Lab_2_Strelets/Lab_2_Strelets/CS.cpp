@@ -16,6 +16,12 @@ int CS::get_num_ws() const { return(num_ws); }
 int CS::get_on_ws() const { return(on_ws); }
 double CS::get_eff() const { return(eff); }
 
+void CS::set_on_ws() { // Редактирование КС      
+    cout << "Old number active workshops: " << on_ws << endl;
+    cout << "Enter new number of active worckshop: ";
+    on_ws = Take_Int(0, num_ws);
+}
+
 ostream& operator<<(ostream& os, const CS& stat) {
     return os << setw(16) << stat.get_name() << "|" << setw(16) << stat.get_num_ws() << "|" << setw(16) << stat.get_on_ws()
         << "|" << setw(10) << stat.get_eff() << "|" << endl;

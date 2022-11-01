@@ -16,6 +16,12 @@ int tube::get_lenght() const { return(lenght); }
 double tube::get_diameter() const { return(diameter); }
 bool tube::get_repair() const { return(repair); }
 
+void tube::set_repair() { // Редактирование трубы
+    cout << "Old repair status: " << repair << endl;;
+    cout << "Enter the new repair status: ";
+    repair = Take_Int(0, 1);
+}
+
 ostream& operator<<(ostream& os, const tube& p) {
     return os << setw(16) << p.get_name() << "|" << setw(16) << p.get_lenght() << "|" << setw(16) << p.get_diameter()
         << "|" << setw(6) << p.get_repair() << "|" << endl;

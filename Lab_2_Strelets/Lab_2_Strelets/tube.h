@@ -16,6 +16,8 @@ public:
     double get_diameter() const;
     bool get_repair() const;
 
+    void set_repair();
+
     friend ostream& operator<<(ostream& os, const tube& p);
     friend istream& operator>>(istream& is, tube& p);
 
